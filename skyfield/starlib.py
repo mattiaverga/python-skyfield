@@ -106,6 +106,18 @@ class Star(object):
             epoch=epoch,
         )
 
+    @classmethod
+    def from_ongc(cls, identifier):
+        from pyongc import ongc
+        deepsky = ongc.Dso(identifier)
+        return cls(
+            ra = Angle(radians=deepsky.rad_coords[0]),
+            dec = Angle(radians=deepsky.rad_coords[1]),
+            ra_mas_per_year = deepsky.pm_ra or 0,
+            dec_mas_per_year = deepsky.pm_dec or 0,
+            parallax_mas = deepsky.parallax or 0,
+        )
+
     def _observe_from_bcrs(self, observer):
         position, velocity = self._position_au, self._velocity_au_per_d
         t = observer.t

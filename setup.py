@@ -60,4 +60,7 @@ setup(
         'numpy',
         'sgp4>=2.2',
         ],
+    extras_require={
+        'ongc': ['pyongc'],
+    },
 )
